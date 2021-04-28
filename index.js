@@ -89,3 +89,13 @@ app.get("/books", (req, res) => {
     res.render("books", { model: result.rows });
   });
 });
+
+// GET /edit/5
+app.get("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT * FROM Books WHERE Book_ID = $1";
+  pool.query(sql, [id], (err, result) => {
+    // if (err) ...
+    res.render("edit", { model: result.rows[0] });
+  });
+});
